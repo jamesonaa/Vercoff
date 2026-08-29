@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Vercoff.ViewModels"
+             x:Class="Vercoff.Views.OrderTrackingPage"
+             x:DataType="vm:OrderTrackingViewModel"
+             Title="Orders"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource CreamBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- ═══════════ HEADER ═══════════ -->
+            <Border Padding="20,16"
+                    BackgroundColor="{StaticResource EspressoDark}"
+                    Stroke="Transparent">
+                <Label Text="📋  My Orders"
+                       FontFamily="PoppinsBold" FontSize="22"
+                       TextColor="{StaticResource CreamBackground}" />
+            </Border>
+
+            <!-- ═══════════ ACTIVE ORDER ═══════════ -->
+            <VerticalStackLayout Padding="16,16" Spacing="16"
+                                 IsVisible="{Binding HasCurrentOrder}">
+
+                <Label Text="Current Order" Style="{StaticResource Heading}" />
+
+                <!-- Status Message -->
+                <Border BackgroundColor="{StaticResource EspressoDark}"
+                        StrokeShape="RoundRectangle 16" Stroke="Transparent"
+                        Padding="20">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="{Binding StatusMessage}"
+                               FontFamily="PoppinsBold" FontSize="18"
+                               TextColor="{StaticResource CreamBackground}"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding CurrentOrder.Id, StringFormat='Order #{0}'}"
+                               FontFamily="PoppinsRegular" FontSize="13"
+                               TextColor="{StaticResource SoftGray}"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ═══ PROGRESS TRACKER ═══ -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16" Padding="20,24">
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto"
+                          ColumnSpacing="0" RowSpacing="4">
+
+                        <!-- Step 1: Payment -->
+                        <Border Grid.Row="0" Grid.Column="0"
+                                HeightRequest="48" WidthRequest="48"
+                                StrokeShape="RoundRectangle 24"
+                                Stroke="Transparent"
+                                HorizontalOptions="Center"
+                                x:Name="Step1Circle">
+                            <Label Text="💳" FontSize="22"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Payment"
+                               FontFamily="PoppinsSemiBold" FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource EspressoText}" />
+                        <Label Grid.Row="2" Grid.Column="0"
+                               FontFamily="PoppinsRegular" FontSize="10"
+                               HorizontalOptions="Center"
+                               x:Name="Step1Status" />
+
+                        <!-- Connector 1-2 -->
+                        <!-- Step 2: Brewing -->
+                        <Border Grid.Row="0" Grid.Column="1"
+                                HeightRequest="48" WidthRequest="48"
+                                StrokeShape="RoundRectangle 24"
+                                Stroke="Transparent"
+                                HorizontalOptions="Center"
+                                x:Name="Step2Circle">
+                            <Label Text="☕" FontSize="22"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="Brewing"
+                               FontFamily="PoppinsSemiBold" FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource EspressoText}" />
+                        <Label Grid.Row="2" Grid.Column="1"
+                               FontFamily="PoppinsRegular" FontSize="10"
+                               HorizontalOptions="Center"
+                               x:Name="Step2Status" />
+
+                        <!-- Step 3: Ready -->
+                        <Border Grid.Row="0" Grid.Column="2"
+                                HeightRequest="48" WidthRequest="48"
+                                StrokeShape="RoundRectangle 24"
+                                Stroke="Transparent"
+                                HorizontalOptions="Center"
+                                x:Name="Step3Circle">
+                            <Label Text="✅" FontSize="22"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Grid.Row="1" Grid.Column="2"
+                               Text="Ready"
+                               FontFamily="PoppinsSemiBold" FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource EspressoText}" />
+                        <Label Grid.Row="2" Grid.Column="2"
+                               FontFamily="PoppinsRegular" FontSize="10"
+                               HorizontalOptions="Center"
+                               x:Name="Step3Status" />
+                    </Grid>
+                </Border>
+
+                <!-- Order Details -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16" Padding="16">
+                    <VerticalStackLayout Spacing="6">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Total" FontFamily="PoppinsSemiBold" FontSize="14" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding CurrentOrder.Total, StringFormat='₱{0:N0}'}"
+                                   Style="{StaticResource PriceLabel}" FontSize="18" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Payment" Style="{StaticResource Caption}" FontSize="13" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding CurrentOrder.PaymentMethod}"
+                                   FontFamily="PoppinsSemiBold" FontSize="13"
+                                   TextColor="{StaticResource EspressoText}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Reference" Style="{StaticResource Caption}" FontSize="13" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding CurrentOrder.ReferenceNumber}"
+                                   FontFamily="PoppinsRegular" FontSize="13"
+                                   TextColor="{StaticResource EspressoText}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- ═══════════ NO ACTIVE ORDER ═══════════ -->
+            <VerticalStackLayout Padding="16,60"
+                                 IsVisible="{Binding HasCurrentOrder, Converter={x:Null}}"
+                                 HorizontalOptions="Center" Spacing="12"
+                                 x:Name="NoOrderState">
+                <Label Text="☕" FontSize="60" HorizontalOptions="Center" />
+                <Label Text="No active orders"
+                       FontFamily="PoppinsSemiBold" FontSize="18"
+                       TextColor="{StaticResource EspressoText}"
+                       HorizontalOptions="Center" />
+                <Label Text="Place an order to see it tracked here"
+                       Style="{StaticResource Caption}" FontSize="14"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- ═══════════ ORDER HISTORY ═══════════ -->
+            <VerticalStackLayout Padding="16,8,16,20" Spacing="12"
+                                 IsVisible="{Binding HasOrderHistory}">
+                <Label Text="Order History" Style="{StaticResource Heading}" />
+
+                <CollectionView ItemsSource="{Binding OrderHistory}"
+                                ItemSizingStrategy="MeasureAllItems">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Border Margin="0,0,0,8"
+                                    BackgroundColor="{StaticResource White}"
+                                    Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 12" Padding="14">
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding Id, StringFormat='Order #{0}'}"
+                                           FontFamily="PoppinsSemiBold" FontSize="14"
+                                           TextColor="{StaticResource EspressoDark}" />
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Total, StringFormat='₱{0:N0}'}"
+                                           FontFamily="PoppinsBold" FontSize="14"
+                                           TextColor="{StaticResource CaramelAccent}" />
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="{Binding CreatedAt, StringFormat='{0:MMM dd, yyyy h:mm tt}'}"
+                                           Style="{StaticResource Caption}" />
+                                    <Label Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding Status}"
+                                           FontFamily="PoppinsSemiBold" FontSize="11"
+                                           TextColor="{StaticResource SuccessGreen}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Vercoff.ViewModels"
+             x:Class="Vercoff.Views.CustomizationPopup"
+             x:DataType="vm:CustomizationViewModel"
+             BackgroundColor="#B3000000">
+
+    <Grid VerticalOptions="End">
+        <Border BackgroundColor="{StaticResource CreamBackground}"
+                StrokeShape="RoundRectangle 24,24,0,0"
+                Stroke="Transparent"
+                WidthRequest="380"
+                Padding="0">
+        <ScrollView>
+            <VerticalStackLayout Spacing="0">
+
+                <!-- ═══ Drink Image & Name ═══ -->
+                <Border StrokeShape="RoundRectangle 24,24,0,0"
+                        Stroke="Transparent"
+                        HeightRequest="200" Padding="0">
+                    <Grid>
+                        <Image Source="{Binding MenuItem.ImageSource}"
+                               Aspect="AspectFill" HeightRequest="200" />
+                        <!-- Gradient Overlay -->
+                        <BoxView Color="{StaticResource OverlayBlack}"
+                                 Opacity="0.3" />
+                        <!-- Close Button -->
+                        <Border StrokeShape="RoundRectangle 18"
+                                BackgroundColor="{StaticResource White}"
+                                Stroke="Transparent"
+                                HeightRequest="36" WidthRequest="36"
+                                HorizontalOptions="End" VerticalOptions="Start"
+                                Margin="16">
+                            <Label Text="✕" FontSize="16"
+                                   HorizontalOptions="Center" VerticalOptions="Center"
+                                   TextColor="{StaticResource EspressoText}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseTapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Border>
+                        <!-- Name Overlay -->
+                        <VerticalStackLayout VerticalOptions="End" Padding="20,0,20,16">
+                            <Label Text="{Binding MenuItem.Name}"
+                                   FontFamily="PoppinsBold" FontSize="24"
+                                   TextColor="{StaticResource White}" />
+                            <Label Text="{Binding MenuItem.Description}"
+                                   FontFamily="PoppinsRegular" FontSize="12"
+                                   TextColor="{StaticResource CreamBackground}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- ═══ Customization Options ═══ -->
+                <VerticalStackLayout Padding="20,16" Spacing="16">
+
+                    <!-- SIZE -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Size" Style="{StaticResource SubHeading}" />
+                        <HorizontalStackLayout Spacing="10">
+                            <Border Padding="16,10" StrokeShape="RoundRectangle 12"
+                                    Stroke="{StaticResource CaramelAccent}" StrokeThickness="2"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="☕ Regular" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnRegularTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                            <Border Padding="16,10" StrokeShape="RoundRectangle 12"
+                                    Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="🥤 Large " />
+                                            <Span Text="{Binding MenuItem.LargeUpcharge, StringFormat='(+₱{0:N0})'}"
+                                                  FontSize="11" TextColor="{StaticResource SoftGray}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnLargeTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- MILK -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Milk Choice" Style="{StaticResource SubHeading}" />
+                        <HorizontalStackLayout Spacing="10">
+                            <Border Padding="16,10" StrokeShape="RoundRectangle 12"
+                                    Stroke="{StaticResource CaramelAccent}" StrokeThickness="2"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="🥛 Whole Milk" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnWholeMilkTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                            <Border Padding="16,10" StrokeShape="RoundRectangle 12"
+                                    Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="🌱 Oat Milk (+₱20)" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnOatMilkTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- EXTRA SHOTS -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Extra Espresso Shots (+₱15 each)" Style="{StaticResource SubHeading}" />
+                        <HorizontalStackLayout Spacing="12" HorizontalOptions="Start">
+                            <Button Text="−" WidthRequest="44" HeightRequest="44"
+                                    CornerRadius="22"
+                                    BackgroundColor="{StaticResource LightCream}"
+                                    TextColor="{StaticResource EspressoText}"
+                                    FontSize="20" FontFamily="PoppinsBold"
+                                    Command="{Binding DecrementShotsCommand}" />
+                            <Label Text="{Binding ExtraShots}"
+                                   FontFamily="PoppinsBold" FontSize="22"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="40"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{StaticResource EspressoDark}" />
+                            <Button Text="+" WidthRequest="44" HeightRequest="44"
+                                    CornerRadius="22"
+                                    BackgroundColor="{StaticResource CaramelAccent}"
+                                    TextColor="{StaticResource White}"
+                                    FontSize="20" FontFamily="PoppinsBold"
+                                    Command="{Binding IncrementShotsCommand}" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- SWEETNESS -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Sweetness Level" Style="{StaticResource SubHeading}" />
+                        <HorizontalStackLayout Spacing="8">
+                            <Border Padding="12,8" StrokeShape="RoundRectangle 10"
+                                    Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="25%" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetSweetnessCommand}"
+                                                              CommandParameter="25" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                            <Border Padding="12,8" StrokeShape="RoundRectangle 10"
+                                    Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="50%" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetSweetnessCommand}"
+                                                              CommandParameter="50" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                            <Border Padding="12,8" StrokeShape="RoundRectangle 10"
+                                    Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="75%" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetSweetnessCommand}"
+                                                              CommandParameter="75" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                            <Border Padding="12,8" StrokeShape="RoundRectangle 10"
+                                    Stroke="{StaticResource CaramelAccent}" StrokeThickness="2"
+                                    BackgroundColor="{StaticResource White}">
+                                <Label Text="100%" FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource EspressoText}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetSweetnessCommand}"
+                                                              CommandParameter="100" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- DIVIDER -->
+                    <BoxView HeightRequest="1" Color="{StaticResource LightCream}" Margin="0,4" />
+
+                    <!-- PRICE & ADD -->
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="Total" Style="{StaticResource Caption}" />
+                            <Label Text="{Binding ComputedPrice, StringFormat='₱{0:N0}'}"
+                                   Style="{StaticResource PriceLabel}" FontSize="24" />
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1"
+                                Text="Add to Cart"
+                                Style="{StaticResource PrimaryButton}"
+                                WidthRequest="160"
+                                Command="{Binding AddToCartCommand}"
+                                x:Name="AddToCartBtn" />
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+    </Grid>
+
+</ContentPage>

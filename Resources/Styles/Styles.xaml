@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Base Page Style -->
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource CreamBackground}" />
+    </Style>
+
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource EspressoDark}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource CaramelAccent}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource TabBarBackground}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource TabBarSelected}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabBarUnselected}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource TabBarSelected}" />
+    </Style>
+
+    <!-- Navigation Bar -->
+    <Style TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource EspressoDark}" />
+        <Setter Property="BarTextColor" Value="{StaticResource CreamBackground}" />
+    </Style>
+
+    <!-- Default Label -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource EspressoText}" />
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!-- Heading -->
+    <Style x:Key="Heading" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource EspressoDark}" />
+        <Setter Property="FontFamily" Value="PoppinsBold" />
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+
+    <Style x:Key="SubHeading" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource EspressoText}" />
+        <Setter Property="FontFamily" Value="PoppinsSemiBold" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style x:Key="Caption" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource SoftGray}" />
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style x:Key="PriceLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource CaramelAccent}" />
+        <Setter Property="FontFamily" Value="PoppinsBold" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <!-- Primary Button -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource CaramelAccent}" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="FontFamily" Value="PoppinsSemiBold" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="Padding" Value="20,0" />
+    </Style>
+
+    <!-- Secondary Button -->
+    <Style x:Key="SecondaryButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource CaramelAccent}" />
+        <Setter Property="BorderColor" Value="{StaticResource CaramelAccent}" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="FontFamily" Value="PoppinsSemiBold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HeightRequest" Value="44" />
+    </Style>
+
+    <!-- Small Add Button -->
+    <Style x:Key="AddButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource CaramelAccent}" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="FontFamily" Value="PoppinsBold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HeightRequest" Value="36" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    <!-- Card Frame -->
+    <Style x:Key="CardFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderColor" Value="Transparent" />
+    </Style>
+
+    <!-- Entry -->
+    <Style TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="TextColor" Value="{StaticResource EspressoText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource SoftGray}" />
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!-- Border / Card container -->
+    <Style x:Key="CardBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Stroke" Value="{StaticResource LightCream}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="16" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Category Chip (unselected) -->
+    <Style x:Key="ChipBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource LightCream}" />
+        <Setter Property="Stroke" Value="{StaticResource SoftGray}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Padding" Value="14,8" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="20" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Activity Indicator -->
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{StaticResource CaramelAccent}" />
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Vercoff.ViewModels"
+             x:Class="Vercoff.Views.CheckoutPage"
+             x:DataType="vm:CheckoutViewModel"
+             Title="Checkout"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource CreamBackground}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ═══════════ HEADER ═══════════ -->
+        <Grid Grid.Row="0" Padding="20,16" ColumnDefinitions="Auto,*"
+              BackgroundColor="{StaticResource EspressoDark}">
+            <Label Text="←" FontSize="22" TextColor="{StaticResource CreamBackground}"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="1" Text="  Checkout"
+                   FontFamily="PoppinsBold" FontSize="22"
+                   TextColor="{StaticResource CreamBackground}"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <!-- ═══════════ CONTENT ═══════════ -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16" Padding="16,16">
+
+                <!-- Total Display -->
+                <Border BackgroundColor="{StaticResource EspressoDark}"
+                        StrokeShape="RoundRectangle 16" Stroke="Transparent"
+                        Padding="20">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="Amount to Pay"
+                               FontFamily="PoppinsRegular" FontSize="13"
+                               TextColor="{StaticResource SoftGray}"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding Total, StringFormat='₱{0:N2}'}"
+                               FontFamily="PoppinsBold" FontSize="32"
+                               TextColor="{StaticResource CaramelAccent}"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ═══ PAYMENT METHOD ═══ -->
+                <Label Text="Select Payment Method" Style="{StaticResource SubHeading}" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <!-- GCash -->
+                    <Border Grid.Column="0" Padding="16,14"
+                            StrokeShape="RoundRectangle 14"
+                            StrokeThickness="2"
+                            BackgroundColor="{StaticResource White}">
+                        <Border.Stroke>
+                            <SolidColorBrush Color="{Binding IsGCash, Converter={x:Null}}" />
+                        </Border.Stroke>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="💙" FontSize="28" HorizontalOptions="Center" />
+                            <Label Text="GCash" FontFamily="PoppinsBold" FontSize="15"
+                                   TextColor="#0070E0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectGCashCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                    <!-- Maya -->
+                    <Border Grid.Column="1" Padding="16,14"
+                            StrokeShape="RoundRectangle 14"
+                            StrokeThickness="2"
+                            BackgroundColor="{StaticResource White}">
+                        <Border.Stroke>
+                            <SolidColorBrush Color="{Binding IsMaya, Converter={x:Null}}" />
+                        </Border.Stroke>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="💚" FontSize="28" HorizontalOptions="Center" />
+                            <Label Text="Maya" FontFamily="PoppinsBold" FontSize="15"
+                                   TextColor="#00B140" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectMayaCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+
+                <!-- ═══ QR CODE AREA ═══ -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16" Padding="20">
+                    <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                        <Label Text="{Binding SelectedPaymentMethod, StringFormat='Scan {0} QR Code'}"
+                               FontFamily="PoppinsSemiBold" FontSize="15"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource EspressoDark}" />
+                        <!-- QR Placeholder -->
+                        <Border StrokeShape="RoundRectangle 12"
+                                Stroke="{StaticResource LightCream}" StrokeThickness="2"
+                                HeightRequest="200" WidthRequest="200"
+                                BackgroundColor="{StaticResource CreamBackground}"
+                                HorizontalOptions="Center">
+                            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                                <Label Text="📱" FontSize="48" HorizontalOptions="Center" />
+                                <Label Text="QR Code Here"
+                                       FontFamily="PoppinsSemiBold" FontSize="13"
+                                       TextColor="{StaticResource SoftGray}"
+                                       HorizontalOptions="Center" />
+                                <Label Text="{Binding SelectedPaymentMethod, StringFormat='Pay via {0}'}"
+                                       FontFamily="PoppinsRegular" FontSize="11"
+                                       TextColor="{StaticResource SoftGray}"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="After paying, enter your 13-digit reference number below"
+                               FontFamily="PoppinsRegular" FontSize="11"
+                               TextColor="{StaticResource SoftGray}"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ═══ REFERENCE NUMBER ═══ -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16" Padding="16">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Payment Reference Number" Style="{StaticResource SubHeading}" />
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="{StaticResource SoftGray}" StrokeThickness="1"
+                                BackgroundColor="{StaticResource LightCream}"
+                                Padding="4,0">
+                            <Entry Placeholder="Enter 13-digit reference number"
+                                   Text="{Binding ReferenceNumber}"
+                                   Keyboard="Numeric"
+                                   MaxLength="13"
+                                   FontFamily="PoppinsSemiBold" FontSize="16"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="48" />
+                        </Border>
+                        <Label Text="{Binding ValidationError}"
+                               TextColor="{StaticResource ErrorRed}"
+                               FontFamily="PoppinsRegular" FontSize="12"
+                               x:Name="ValidationLabel" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Spacer -->
+                <BoxView HeightRequest="80" Color="Transparent" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ═══════════ CONFIRM BUTTON ═══════════ -->
+        <Border Grid.Row="2" Padding="16,12"
+                BackgroundColor="{StaticResource CreamBackground}"
+                Stroke="Transparent">
+            <Grid>
+                <Button Text="Confirm Payment"
+                        Style="{StaticResource PrimaryButton}"
+                        Command="{Binding ConfirmPaymentCommand}"
+                        IsVisible="{Binding IsProcessing, Converter={x:Null}}"
+                        x:Name="ConfirmBtn" />
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
+                                       IsVisible="{Binding IsProcessing}" Spacing="12">
+                    <ActivityIndicator IsRunning="{Binding IsProcessing}"
+                                       HeightRequest="24" WidthRequest="24" />
+                    <Label Text="Processing payment..."
+                           FontFamily="PoppinsSemiBold" FontSize="15"
+                           TextColor="{StaticResource CaramelAccent}"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+
+    </Grid>
+
+</ContentPage>

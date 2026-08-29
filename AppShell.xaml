@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Vercoff.Views"
+       x:Class="Vercoff.AppShell"
+       Shell.BackgroundColor="{StaticResource EspressoDark}"
+       Shell.ForegroundColor="{StaticResource CaramelAccent}"
+       Shell.TabBarBackgroundColor="{StaticResource TabBarBackground}"
+       Shell.TabBarForegroundColor="{StaticResource TabBarSelected}"
+       Shell.TabBarUnselectedColor="{StaticResource TabBarUnselected}"
+       Shell.TabBarTitleColor="{StaticResource TabBarSelected}"
+       FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <ShellContent Title="Menu"
+                      Icon="{x:Null}"
+                      Route="home"
+                      ContentTemplate="{DataTemplate views:HomePage}" />
+
+        <ShellContent Title="Nest Pass"
+                      Icon="{x:Null}"
+                      Route="nestpass"
+                      ContentTemplate="{DataTemplate views:NestPassPage}" />
+
+        <ShellContent Title="Cart"
+                      Icon="{x:Null}"
+                      Route="cart"
+                      ContentTemplate="{DataTemplate views:CartPage}" />
+
+        <ShellContent Title="Orders"
+                      Icon="{x:Null}"
+                      Route="orders"
+                      ContentTemplate="{DataTemplate views:OrderTrackingPage}" />
+    </TabBar>
+
+</Shell>

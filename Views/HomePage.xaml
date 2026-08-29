@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Vercoff.ViewModels"
+             x:Class="Vercoff.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource CreamBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="0">
+
+            <!-- ═══════════ HEADER ═══════════ -->
+            <Grid Padding="20,16" ColumnDefinitions="50,*,44" RowDefinitions="Auto"
+                  BackgroundColor="{StaticResource EspressoDark}">
+                <!-- Logo -->
+                <Border Grid.Column="0" StrokeShape="RoundRectangle 25"
+                        Stroke="Transparent" HeightRequest="44" WidthRequest="44"
+                        BackgroundColor="{StaticResource CreamBackground}" HorizontalOptions="Start">
+                    <Image Source="logo_versnest.jpg" Aspect="AspectFill"
+                           HeightRequest="44" WidthRequest="44" />
+                </Border>
+                <!-- Greeting -->
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="12,0,0,0">
+                    <Label Text="{Binding Greeting}"
+                           FontFamily="PoppinsSemiBold" FontSize="16"
+                           TextColor="{StaticResource CreamBackground}" />
+                    <Label Text="The 29th COFFEEHOLIC"
+                           FontFamily="PoppinsRegular" FontSize="11"
+                           TextColor="{StaticResource CaramelLight}" />
+                </VerticalStackLayout>
+                <!-- Cart Icon -->
+                <Border Grid.Column="2" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{StaticResource CaramelAccent}"
+                        Stroke="Transparent" HeightRequest="44" WidthRequest="44"
+                        HorizontalOptions="End">
+                    <Label Text="🛒" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"
+                           TextColor="{StaticResource White}" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCartTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+            </Grid>
+
+            <!-- ═══════════ NEST PASS BANNER ═══════════ -->
+            <Border Margin="16,16,16,0" Padding="16"
+                    BackgroundColor="{StaticResource CaramelAccent}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 16">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                    <Label Grid.Row="0" Grid.ColumnSpan="2"
+                           Text="🪺 Join the Nest Pass"
+                           FontFamily="PoppinsBold" FontSize="17"
+                           TextColor="{StaticResource White}" />
+                    <Label Grid.Row="1" Grid.ColumnSpan="2" Margin="0,4,0,10"
+                           Text="Get 15% OFF every order for just ₱99/week!"
+                           FontFamily="PoppinsRegular" FontSize="13"
+                           TextColor="{StaticResource CreamBackground}" />
+                    <Button Grid.Row="2" Grid.Column="0"
+                            Text="Subscribe Now"
+                            BackgroundColor="{StaticResource White}"
+                            TextColor="{StaticResource CaramelAccent}"
+                            FontFamily="PoppinsSemiBold" FontSize="13"
+                            CornerRadius="10" HeightRequest="38"
+                            Padding="16,0"
+                            HorizontalOptions="Start"
+                            Clicked="OnNestPassTapped" />
+                </Grid>
+            </Border>
+
+            <!-- ═══════════ FEATURED DRINKS ═══════════ -->
+            <Label Text="✨ Featured Drinks"
+                   Style="{StaticResource Heading}"
+                   Margin="20,20,20,8" />
+
+            <CollectionView ItemsSource="{Binding FeaturedDrinks}"
+                            HeightRequest="280"
+                            ItemsLayout="HorizontalList"
+                            Margin="0,0,0,8">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:Object">
+                        <Border Margin="8,4,4,4" WidthRequest="180"
+                                BackgroundColor="{StaticResource White}"
+                                Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                StrokeShape="RoundRectangle 16"
+                                Padding="0">
+                            <VerticalStackLayout Spacing="0">
+                                <!-- Drink Image -->
+                                <Border StrokeShape="RoundRectangle 16,16,0,0"
+                                        Stroke="Transparent"
+                                        HeightRequest="150" Padding="0">
+                                    <Image Source="{Binding ImageSource}"
+                                           Aspect="AspectFill"
+                                           HeightRequest="150" />
+                                </Border>
+                                <!-- Info -->
+                                <VerticalStackLayout Padding="12,8,12,12" Spacing="4">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="PoppinsSemiBold" FontSize="14"
+                                           TextColor="{StaticResource EspressoDark}"
+                                           LineBreakMode="TailTruncation" MaxLines="1" />
+                                    <Label Text="{Binding Description}"
+                                           FontFamily="PoppinsRegular" FontSize="11"
+                                           TextColor="{StaticResource SoftGray}"
+                                           LineBreakMode="TailTruncation" MaxLines="2"
+                                           HeightRequest="30" />
+                                    <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,0">
+                                        <Label Text="{Binding BasePrice, StringFormat='₱{0:N0}'}"
+                                               Style="{StaticResource PriceLabel}" FontSize="16"
+                                               VerticalOptions="Center" />
+                                        <Button Grid.Column="1" Text="Add +"
+                                                Style="{StaticResource AddButton}"
+                                                HeightRequest="32" FontSize="12"
+                                                Clicked="OnQuickAddTapped"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDrinkTapped" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- ═══════════ CATEGORIES ═══════════ -->
+            <Label Text="Browse Menu"
+                   Style="{StaticResource Heading}"
+                   Margin="20,8,20,8" />
+
+            <CollectionView ItemsSource="{Binding Categories}"
+                            HeightRequest="50"
+                            ItemsLayout="HorizontalList"
+                            SelectionMode="Single"
+                            SelectionChanged="OnCategorySelected"
+                            Margin="8,0,0,4">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border Margin="4,4" Padding="16,8"
+                                BackgroundColor="{StaticResource LightCream}"
+                                Stroke="{StaticResource SoftGray}" StrokeThickness="1"
+                                StrokeShape="RoundRectangle 20">
+                            <Label Text="{Binding .}"
+                                   FontFamily="PoppinsSemiBold" FontSize="13"
+                                   TextColor="{StaticResource EspressoText}"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- ═══════════ ALL DRINKS GRID ═══════════ -->
+            <CollectionView ItemsSource="{Binding AllDrinks}"
+                            Margin="12,4,12,20"
+                            ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="2"
+                                     HorizontalItemSpacing="10"
+                                     VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:Object">
+                        <Border BackgroundColor="{StaticResource White}"
+                                Stroke="{StaticResource LightCream}" StrokeThickness="1"
+                                StrokeShape="RoundRectangle 16"
+                                Padding="0">
+                            <VerticalStackLayout Spacing="0">
+                                <Border StrokeShape="RoundRectangle 16,16,0,0"
+                                        Stroke="Transparent"
+                                        HeightRequest="120" Padding="0">
+                                    <Image Source="{Binding ImageSource}"
+                                           Aspect="AspectFill" HeightRequest="120" />
+                                </Border>
+                                <VerticalStackLayout Padding="10,8,10,10" Spacing="2">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="PoppinsSemiBold" FontSize="13"
+                                           TextColor="{StaticResource EspressoDark}"
+                                           LineBreakMode="TailTruncation" MaxLines="1" />
+                                    <Label Text="{Binding Category}"
+                                           FontFamily="PoppinsRegular" FontSize="10"
+                                           TextColor="{StaticResource SoftGray}" />
+                                    <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,0">
+                                        <Label Text="{Binding BasePrice, StringFormat='₱{0:N0}'}"
+                                               Style="{StaticResource PriceLabel}" FontSize="15"
+                                               VerticalOptions="Center" />
+                                        <Button Grid.Column="1" Text="+"
+                                                Style="{StaticResource AddButton}"
+                                                WidthRequest="36" HeightRequest="30"
+                                                FontSize="16" Padding="0"
+                                                Clicked="OnQuickAddTapped"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDrinkTapped" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

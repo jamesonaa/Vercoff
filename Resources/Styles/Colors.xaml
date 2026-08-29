@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Ver's Nest Brand Palette -->
+    <Color x:Key="CreamBackground">#FDFBF7</Color>
+    <Color x:Key="EspressoText">#4A2E1B</Color>
+    <Color x:Key="EspressoDark">#3A2415</Color>
+    <Color x:Key="CaramelAccent">#D48C46</Color>
+    <Color x:Key="CaramelHover">#C47A34</Color>
+    <Color x:Key="CaramelLight">#F0D4A8</Color>
+    <Color x:Key="WoodUndertone">#8B6F47</Color>
+    <Color x:Key="LightCream">#F5EDE0</Color>
+    <Color x:Key="SoftGray">#B8A99A</Color>
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="ErrorRed">#D44E4E</Color>
+    <Color x:Key="SuccessGreen">#4E8B3A</Color>
+    <Color x:Key="OverlayBlack">#80000000</Color>
+
+    <!-- Shell / Tab Colors -->
+    <Color x:Key="TabBarBackground">#3A2415</Color>
+    <Color x:Key="TabBarSelected">#D48C46</Color>
+    <Color x:Key="TabBarUnselected">#B8A99A</Color>
+
+</ResourceDictionary>
