@@ -1,0 +1,14 @@
+# Build and temporary output directories
+bin/
+obj/
+
+# Visual Studio and IDE files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS generated files
+.DS_Store
+Thumbs.db
